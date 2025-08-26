@@ -1,0 +1,30 @@
+import { Stack } from "expo-router";
+import { View, StyleSheet } from "react-native";
+import Colors from "@/src/constants/colors";
+import SplashScreen from "../components/SplashScreen";
+import { useState } from "react";
+
+export default function Layout() {
+
+  const [showSplash, setShowSplash] = useState(true);
+
+  if (showSplash) {
+    return <SplashScreen onFinish={() => setShowSplash(false)} />;
+  }
+  
+  return (
+    <View style={styles.container}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="profile" />
+      </Stack>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
+});

@@ -4,7 +4,8 @@
     "slug": "myLocale",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "backgroundColor": "#FFF9FA",
+    "icon": "./assets/images/dark.png",
     "scheme": "mylocale",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -14,7 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFF9FA"
       },
       "edgeToEdgeEnabled": true
     },
@@ -24,14 +25,17 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+      "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow myLocale to access your location."
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#0F1108"
         }
       ]
     ],
