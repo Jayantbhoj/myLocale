@@ -12,8 +12,13 @@ const ProfileHeader = () => {
   const isSignedIn = useUserStore(state => state.isSignedIn);
 
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.lightPink }}>
-      {/* First row: arrow + Profile */}
+    <SafeAreaView style={{
+    backgroundColor: Colors.lightPink,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    overflow: 'hidden', // ensures background respects the curve
+  }}>
+
       <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 8 }}>
         <TouchableOpacity onPress={() => router.back()} style={{ width: 40 }}>
           <Ionicons name="arrow-back" size={24} color={Colors.black} />
@@ -23,17 +28,16 @@ const ProfileHeader = () => {
         </View>
       </View>
 
-      {/* Second row: sign in button if signed out, else greeting */}
       {isSignedIn ? (
-        <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 14 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 20 }}>
           <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.black }}>
             Hey, {firstName}
           </Text>
         </View>
       ) : (
         <TouchableOpacity
-          onPress={() => router.push('/signin')}
-          style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 14 }}
+          onPress={() => router.push('/signup')}
+          style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 20 }}
         >
           <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.black }}>
             Please Sign In

@@ -5,15 +5,14 @@ export default function ProfilePageGuest() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}> 
-        {/* Header */}
+
         <Text style={styles.title}>Welcome to myLocale</Text>
         <Text style={styles.subtitle}>
           Join now to explore events near you, save favorites, and manage your profile.
         </Text>
-        {/* Divider */}
+
         <View style={styles.divider} />
 
-        {/* Highlights */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Why Join?</Text>
           <Text style={styles.sectionText}>• Get personalized event recommendations 🎉</Text>

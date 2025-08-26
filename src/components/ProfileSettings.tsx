@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/colors';
 
@@ -9,99 +9,91 @@ const ProfileSettings = () => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: Colors.white }}>
-      {/* Past Events */}
-      <View style={{ borderBottomWidth: 1, borderColor: Colors.grey, padding: 16 }}>
-        <Text style={{ fontSize: 16, fontWeight: '600', marginBottom: 8 }}>
-          Past Events
-        </Text>
-        <TouchableOpacity onPress={() => handlePress('Past Events')}>
-          <Text style={{ fontSize: 14, color: Colors.black }}>View All</Text>
-        </TouchableOpacity>
-      </View>
+    <ScrollView style={styles.container}>
 
       {/* Profile Settings */}
-      <View style={{ marginTop: 8 }}>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 16,
-            borderBottomWidth: 1,
-            borderColor: Colors.grey,
-          }}
-          onPress={() => handlePress('Edit Profile')}
-        >
-          <Ionicons name="person-outline" size={20} color={Colors.black} />
-          <Text style={{ marginLeft: 12, fontSize: 15, color: Colors.black }}>
-            Edit Profile
-          </Text>
+      <View style={styles.section}>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('Edit Profile')}>
+          <Ionicons name="person-outline" size={22} color={Colors.black} />
+          <Text style={styles.buttonText}>Edit Profile</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 16,
-            borderBottomWidth: 1,
-            borderColor: Colors.grey,
-          }}
-          onPress={() => handlePress('Notifications')}
-        >
-          <Ionicons name="notifications-outline" size={20} color={Colors.black} />
-          <Text style={{ marginLeft: 12, fontSize: 15, color: Colors.black }}>
-            Notifications
-          </Text>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('Notifications')}>
+          <Ionicons name="notifications-outline" size={22} color={Colors.black} />
+          <Text style={styles.buttonText}>Notifications</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 16,
-            borderBottomWidth: 1,
-            borderColor: Colors.grey,
-          }}
-          onPress={() => handlePress('Payment Methods')}
-        >
-          <Ionicons name="card-outline" size={20} color={Colors.black} />
-          <Text style={{ marginLeft: 12, fontSize: 15, color: Colors.black }}>
-            Payment Methods
-          </Text>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('Help & Support')}>
+          <Ionicons name="help-circle-outline" size={22} color={Colors.black} />
+          <Text style={styles.buttonText}>Help & Support</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 16,
-            borderBottomWidth: 1,
-            borderColor: Colors.grey,
-          }}
-          onPress={() => handlePress('Help & Support')}
-        >
-          <Ionicons name="help-circle-outline" size={20} color={Colors.black} />
-          <Text style={{ marginLeft: 12, fontSize: 15, color: Colors.black }}>
-            Help & Support
-          </Text>
+        <TouchableOpacity style={[styles.button, styles.logout]} onPress={() => handlePress('Logout')}>
+          <Ionicons name="log-out-outline" size={22} color={Colors.pink} />
+          <Text style={[styles.buttonText, { color: Colors.pink }]}>Logout</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 16,
-          }}
-          onPress={() => handlePress('Logout')}
-        >
-          <Ionicons name="log-out-outline" size={20} color={Colors.pink} />
-          <Text style={{ marginLeft: 12, fontSize: 15, color: Colors.pink }}>
-            Logout
-          </Text>
+      </View>
+            {/* Past Events */}
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>Past Events</Text>
+        <TouchableOpacity onPress={() => handlePress('Past Events')}>
+          <Text style={styles.linkText}>View All</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
+  sectionHeader: {
+    margin:4,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey,
+    padding: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 16,      // curved edges
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: Colors.black,
+  },
+  linkText: {
+    fontSize: 14,
+    color: Colors.pink,
+    fontWeight: '500',
+  },
+  section: {
+    margin:4,
+    borderWidth: 1,
+    borderColor: Colors.grey,   // light gray border
+    borderRadius: 16,      // curved edges
+    padding: 8,
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 8,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey,
+    backgroundColor: Colors.white,
+  },
+  buttonText: {
+    marginLeft: 10,
+    fontSize: 15,
+    color: Colors.black,
+  },
+  logout: {
+    borderBottomWidth: 0,
+  },
+});
 
 export default ProfileSettings;
