@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
+import Colors from '@/src/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import Colors from '@/src/constants/colors';
-import PhoneSignIn from '@/src/firebase/PhoneAuth';
+import React from 'react';
+import { Dimensions, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+// import PhoneSignIn from '@/src/firebase/PhoneAuth';
 
 
 
@@ -40,11 +40,11 @@ const AuthScreen = () => {
 
         {/* Title */}
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: Colors.black }}>
-          Sign up / Log in
+           / Log in
         </Text>
       </View>
 
-        <PhoneSignIn/>
+        {/* <PhoneSignIn/> */}
      
 
     </SafeAreaView>

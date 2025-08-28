@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "backgroundColor": "#FFF9FA",
-    "icon": "./assets/images/dark.png",
+    "icon": "./assets/images/logo-light.png",
     "scheme": "mylocale",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -33,7 +33,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      ["@react-native-firebase/app", "@react-native-firebase/auth"],
+
       [
         "expo-location",
         {

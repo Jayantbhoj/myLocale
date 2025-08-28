@@ -1,9 +1,6 @@
-// src/app/(tabs)/index.tsx
-
 import EventCard from "@/src/components/eventCard";
 import Colors from "@/src/constants/colors";
 import { FlatList, View } from "react-native";
-
 
 const data = [
   {
