@@ -10,7 +10,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-       "googleServicesFile": "./ios/GoogleService-Info.plist",
+      "googleServicesFile": "./ios/GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.myLocale"
     },
@@ -33,7 +33,6 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-
       [
         "expo-location",
         {
@@ -46,7 +45,8 @@
         {
           "backgroundColor": "#0F1108"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

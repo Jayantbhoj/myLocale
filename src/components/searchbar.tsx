@@ -7,10 +7,10 @@ export default function SearchBar() {
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <Ionicons name="search" size={20} color={Colors.grey} style={styles.icon} />
+        <Ionicons name="search" size={20} color={Colors.gray} style={styles.icon} />
         <TextInput
           placeholder="Search..."
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={Colors.gray}
           style={styles.input}
         />
       </View>

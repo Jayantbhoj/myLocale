@@ -53,7 +53,7 @@ export default function LocationSearchBar({ onSelectCity }: LocationSearchBarPro
         />
       ) : (
         <View style={styles.item}>
-          <Text style={[styles.itemText, { color: Colors.grey }]}>
+          <Text style={[styles.itemText, { color: Colors.gray }]}>
             Sorry, city not found.
           </Text>
         </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: Colors.grey,
+    borderColor: Colors.gray,
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: Colors.white,
-    borderColor: Colors.grey,
+    borderColor: Colors.gray,
     borderRadius: 8,
     maxHeight: 250,
     zIndex: 10, // make sure it's above other content

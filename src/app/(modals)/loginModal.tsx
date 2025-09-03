@@ -72,7 +72,7 @@ export default function LoginModal({
                 <TextInput
                   style={styles.input}
                   placeholder="Enter phone number"
-                  placeholderTextColor={Colors.grey}
+                  placeholderTextColor={Colors.gray}
                   keyboardType="phone-pad"
                   maxLength={10}
                   onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, ""))}
@@ -115,12 +115,12 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: { fontSize: 18, fontWeight: "600", color: Colors.black },
-  subtitle: { fontSize: 14, color: Colors.grey, marginTop: 8, marginBottom: 20 },
+  subtitle: { fontSize: 14, color: Colors.gray, marginTop: 8, marginBottom: 20 },
   inputRow: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: Colors.grey,
+    borderColor: Colors.gray,
     borderRadius: 8,
     paddingHorizontal: 12,
     marginBottom: 20,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 12,
   },
-  loginButtonDisabled: { backgroundColor: Colors.grey },
+  loginButtonDisabled: { backgroundColor: Colors.gray },
   loginText: { color: Colors.white, fontSize: 16, fontWeight: "600" },
-  closeText: { textAlign: "center", color: Colors.grey, fontSize: 14 },
+  closeText: { textAlign: "center", color: Colors.gray, fontSize: 14 },
 });

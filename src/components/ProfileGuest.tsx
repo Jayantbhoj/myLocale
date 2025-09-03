@@ -1,28 +1,67 @@
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../constants/colors";
 import { useState } from "react";
-import LoginModal from "../app/(modals)/loginModal";
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Alert,
+} from "react-native";
+import Colors from "../constants/colors";
+import { authService } from "@/src/services/authService";
+import { useAuth } from "@/src/context/AuthProvider";
+import { router } from "expo-router";
 
 export default function ProfilePageGuest() {
   const navigation = useNavigation();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { setUser } = useAuth();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+      const user = await authService.signInWithEmail(email, password);
+      if (user) {
+        const profile = await authService.getProfile(user.id);
+        setUser(profile); // ✅ instantly set context
+        router.replace("/(tabs)"); // go to main app
+      }
+    } catch (err: any) {
+      Alert.alert("Login failed", err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Header background */}
       <View style={styles.headerBackground} />
       <SafeAreaView style={styles.safeArea}>
-        {/* Header Content */}
         <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
             <Ionicons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
 
-          {/* Center Logo */}
           <View style={styles.logoContainer}>
-            <Image source={require("../assets/logo/transparent-logo.png")} style={styles.logo} resizeMode="contain" />
-            <Text style={styles.tagline}>Discover events, parties & more near you!</Text>
+            <Image
+              source={require("../assets/logo/transparent-logo.png")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <Text style={styles.tagline}>
+              Discover events, parties & more near you!
+            </Text>
           </View>
         </View>
       </SafeAreaView>
@@ -30,14 +69,49 @@ export default function ProfilePageGuest() {
       {/* Body */}
       <View style={styles.body}>
         <View style={styles.accountBox}>
-          <Text style={styles.accountTitle}>Account</Text>
-          <Text style={styles.accountSubtitle}>
-            Login/Create account to RSVP
-          </Text>
-          <TouchableOpacity style={styles.loginButton} onPress={() => setIsModalVisible(true)}>
-            <Text style={styles.loginText}>Login</Text>
+          <Text style={styles.accountTitle}>Login</Text>
+          <Text style={styles.accountSubtitle}>Login to RSVP</Text>
+
+          {/* Email Input */}
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
+
+          {/* Password Input */}
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+            secureTextEntry
+          />
+
+          {/* Login Button */}
+          <TouchableOpacity
+            style={[styles.loginButton, loading && { opacity: 0.6 }]}
+            onPress={handleLogin}
+            disabled={loading}
+          >
+            <Text style={styles.loginText}>
+              {loading ? "Logging in..." : "Login"}
+            </Text>
           </TouchableOpacity>
-          <LoginModal visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+
+          {/* You can still keep a SignUp button if needed */}
+          <TouchableOpacity
+            style={[
+              styles.loginButton,
+              { marginTop: 12, backgroundColor: Colors.black },
+            ]}
+            onPress={() => router.push("/(modals)/signUpModal")} // if you still want signup screen
+          >
+            <Text style={styles.loginText}>Sign Up</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -79,36 +153,33 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: -40,
   },
-  // inside styles
-body: { 
-  flex: 1, 
-  justifyContent: "center", 
-  alignItems: "center",
-  paddingHorizontal: 20, // instead of marginTop hack
-},
-
-accountBox: {
-  width: "100%",
-  maxWidth: 400, // keeps it neat on wide devices
-  padding: 16,
-  borderRadius: 12,
-  backgroundColor: Colors.white,
-  borderWidth: 1,
-  borderColor: Colors.grey,
-  elevation: 2,
-  transform: [{ translateY: -80 }], 
-},
-
-loginButton: {
-  backgroundColor: Colors.pink,
-  paddingVertical: 12,
-  borderRadius: 8,
-  alignSelf: "center",
-  width: "100%",        // full width
-  maxWidth: 250,        // cap width for large screens
-  alignItems: "center", // center text
-},
-
+  body: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  accountBox: {
+    width: "100%",
+    maxWidth: 400,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: Colors.white,
+    borderWidth: 1,
+    borderColor: Colors.gray,
+    elevation: 2,
+    transform: [{ translateY: -80 }],
+  },
+  loginButton: {
+    backgroundColor: Colors.pink,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignSelf: "center",
+    width: "100%",
+    maxWidth: 250,
+    alignItems: "center",
+    marginTop: 12,
+  },
   accountTitle: {
     fontSize: 20,
     fontWeight: "600",
@@ -117,15 +188,22 @@ loginButton: {
   },
   accountSubtitle: {
     fontSize: 14,
-    color: Colors.grey,
+    color: Colors.gray,
     marginBottom: 16,
-    textAlign: "left", // force left alignment
-    width: "100%", 
+    textAlign: "left",
+    width: "100%",
   },
-
   loginText: {
     color: Colors.white,
     fontSize: 16,
     fontWeight: "600",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: Colors.gray,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 12,
+    width: "100%",
   },
 });

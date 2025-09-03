@@ -16,8 +16,11 @@ export default function Header() {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    fetchLocation();
+    if (!location.latitude || !location.longitude) {
+      fetchLocation();
+    }
   }, []);
+
 
   return (
     <LinearGradient

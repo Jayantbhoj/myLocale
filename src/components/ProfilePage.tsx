@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/colors';
 import ProfileHeader from './ProfileHeader';
+import { AuthContext } from '../context/AuthProvider';  // ⬅️ import context
 
 const ProfilePage = () => {
+  const { signOut } = useContext(AuthContext); // ⬅️ access logout
+
   const handlePress = (action: string) => {
     console.log(`${action} pressed`);
   };
@@ -31,12 +34,17 @@ const ProfilePage = () => {
             <Text style={styles.buttonText}>Help & Support</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.button, styles.logout]} onPress={() => handlePress('Logout')}>
+          {/* 🔴 Logout button calls context */}
+          <TouchableOpacity 
+            style={[styles.button, styles.logout]} 
+            onPress={signOut}
+          >
             <Ionicons name="log-out-outline" size={22} color={Colors.pink} />
             <Text style={[styles.buttonText, { color: Colors.pink }]}>Logout</Text>
           </TouchableOpacity>
         </View>
-              {/* Past Events */}
+
+        {/* Past Events */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Past Events</Text>
           <TouchableOpacity onPress={() => handlePress('Past Events')}>
@@ -56,13 +64,13 @@ const styles = StyleSheet.create({
   sectionHeader: {
     margin:4,
     borderBottomWidth: 1,
-    borderColor: Colors.grey,
+    borderColor: Colors.gray,
     padding: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderWidth: 1,
-    borderRadius: 16,      // curved edges
+    borderRadius: 16,
   },
   sectionTitle: {
     fontSize: 16,
@@ -77,8 +85,8 @@ const styles = StyleSheet.create({
   section: {
     margin:4,
     borderWidth: 1,
-    borderColor: Colors.grey,   // light gray border
-    borderRadius: 16,      // curved edges
+    borderColor: Colors.gray,
+    borderRadius: 16,
     padding: 8,
   },
   button: {
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 8,
     borderBottomWidth: 1,
-    borderColor: Colors.grey,
+    borderColor: Colors.gray,
     backgroundColor: Colors.white,
   },
   buttonText: {

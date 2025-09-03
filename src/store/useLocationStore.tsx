@@ -4,21 +4,28 @@ import * as Location from "expo-location";
 type LocationType = {
   latitude: number | null;
   longitude: number | null;
-  name: string; // city/region
+  name: string; 
 };
 
 type LocationState = {
   location: LocationType;
+  manual: boolean; 
   loading: boolean;
   fetchLocation: () => Promise<void>;
   setLocation: (loc: LocationType) => void;
 };
 
-export const useLocationStore = create<LocationState>((set) => ({
+export const useLocationStore = create<LocationState>((set, get) => ({
   location: { latitude: null, longitude: null, name: "Set Location" },
+  manual: false, 
   loading: false,
 
   fetchLocation: async () => {
+    const state = get();
+
+    
+    if ((state.location.latitude && state.location.longitude) || state.manual) return;
+
     try {
       set({ loading: true });
 
@@ -53,5 +60,6 @@ export const useLocationStore = create<LocationState>((set) => ({
       });
     }
   },
-  setLocation: (loc: LocationType) => set({ location: loc }),
+
+  setLocation: (loc: LocationType) => set({ location: loc, manual: true }), 
 }));

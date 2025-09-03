@@ -1,36 +1,27 @@
-// src/components/EventCard.tsx
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
   TouchableOpacity,
-  GestureResponderEvent,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/colors";
+import EventModal from "../app/(modals)/EventModal";
+import { Event } from "../schemas/internal/eventsSchema";
 
-type Props = {
-  imageUrl: string;
-  name: string;
-  location: string;
-  date: string | Date;
-  onPress?: (e: GestureResponderEvent) => void;
-};
+interface Props {
+  event: Event;
+}
 
-export default function EventCard({
-  imageUrl,
-  name,
-  location,
-  date,
-  onPress,
-}: Props) {
-  const eventDate =
-    typeof date === "string" ? new Date(date) : (date as Date);
-
+export default function EventCard({ event }: Props) {
+  if (!event) {
+    return null; // or a loading placeholder
+  }
+  const [modalVisible, setModalVisible] = useState(false);
+  const eventDate = new Date(event.start_time);
   const dateLabel = isNaN(eventDate.getTime())
-    ? String(date)
+    ? String(event.start_time)
     : eventDate.toLocaleDateString(undefined, {
         day: "numeric",
         month: "short",
@@ -38,34 +29,44 @@ export default function EventCard({
       });
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.9}
-      onPress={onPress}
-      style={styles.card}
-    >
-      <Image
-        source={{ uri: imageUrl }}
-        style={styles.image}
-        resizeMode="cover"
-      />
-
-      <View style={styles.content}>
-        <View style={styles.metaRow}>
-          <Text style={styles.metaText}>{dateLabel}</Text>
-        </View>
-
-        <Text numberOfLines={1} style={styles.title}>
-          {name}
-        </Text>
-
-        {/* Location last */}
-        <View style={styles.metaRow}>
-          <Text numberOfLines={1} style={styles.metaText}>
-            {location}
+    <>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={() => setModalVisible(true)}
+        style={styles.card}
+      >
+        {event.cover_image_url && (
+          <Image
+            source={{ uri: event.cover_image_url }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        )}
+        <View style={styles.content}>
+          <View style={styles.metaRow}>
+            <Text style={styles.metaText}>{dateLabel}</Text>
+          </View>
+          <Text numberOfLines={1} style={styles.title}>
+            {event.name}
           </Text>
+          <View style={styles.metaRow}>
+            <Text numberOfLines={1} style={styles.metaText}>
+              {event.city}, {event.state}
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+
+      <EventModal
+        visible={modalVisible}
+        event={event}
+        onClose={() => setModalVisible(false)}
+        onRSVP={() => {
+          console.log("RSVP clicked for", event.name);
+          setModalVisible(false);
+        }}
+      />
+    </>
   );
 }
 
@@ -85,28 +86,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.05)",
   },
-  image: {
-    width: "100%",
-    aspectRatio: 1,
-  },
-  content: {
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    gap: 6,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: Colors.black,
-  },
-  metaRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 2,
-  },
-  metaText: {
-    fontSize: 12,
-    color: Colors.grey,
-    flexShrink: 1,
-  },
+  image: { width: "100%", aspectRatio: 1 },
+  content: { paddingHorizontal: 12, paddingVertical: 10, gap: 6 },
+  title: { fontSize: 16, fontWeight: "700", color: Colors.black },
+  metaRow: { flexDirection: "row", alignItems: "center", gap: 2 },
+  metaText: { fontSize: 12, color: Colors.gray, flexShrink: 1 },
 });

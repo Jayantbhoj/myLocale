@@ -1,54 +1,102 @@
-import Colors from '@/src/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { Dimensions, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-// import PhoneSignIn from '@/src/firebase/PhoneAuth';
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { router } from "expo-router";
+import { authService } from "@/src/services/authService";
+import Colors from "@/src/constants/colors";
+import { useAuth } from "@/src/context/AuthProvider";
 
+export default function SignUpForm({ onSuccess }: { onSuccess?: () => void }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setUser } = useAuth();
 
+  const isValid =
+    firstName.trim() &&
+    lastName.trim() &&
+    /\S+@\S+\.\S+/.test(email) &&
+    password.length >= 6;
 
-const { height } = Dimensions.get('window');
-
-const AuthScreen = () => {
-  const router = useRouter();
+  const handleSignup = async () => {
+    try {
+      const profile = await authService.signUpWithEmail(email, password, firstName, lastName);
+      setUser( profile )
+      onSuccess?.(); // close modal if provided
+      router.replace("/");
+    } catch (err: any) {
+      console.error("signup failed:", err.message);
+    }
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.white }}>
-      {/* Header */}
-      <View
-        style={{
-          height: height * 0.3,
-          backgroundColor: Colors.pink,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderBottomLeftRadius: 30,
-          borderBottomRightRadius: 30,
-        }}
+    <View>
+      <Text style={styles.title}>Create Account</Text>
+      <Text style={styles.subtitle}>Sign up to RSVP and explore events</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="First Name"
+        placeholderTextColor={Colors.gray}
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Last Name"
+        placeholderTextColor={Colors.gray}
+        value={lastName}
+        onChangeText={setLastName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor={Colors.gray}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        placeholderTextColor={Colors.gray}
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+
+      <TouchableOpacity
+        style={[styles.signupButton, !isValid && styles.signupButtonDisabled]}
+        disabled={!isValid}
+        onPress={handleSignup}
       >
-        {/* Back Button */}
-        <TouchableOpacity
-          onPress={() => router.push('/')}
-          style={{ position: 'absolute', left: 16, top: 16 }}
-        >
-          <Ionicons name="arrow-back" size={24} color={Colors.black} />
-        </TouchableOpacity>
-
-        {/* Logo */}
-        <View style={{ marginBottom: 8 }}>
-          <Ionicons name="person-circle-outline" size={64} color={Colors.black} />
-        </View>
-
-        {/* Title */}
-        <Text style={{ fontSize: 20, fontWeight: 'bold', color: Colors.black }}>
-           / Log in
-        </Text>
-      </View>
-
-        {/* <PhoneSignIn/> */}
-     
-
-    </SafeAreaView>
+        <Text style={styles.signupText}>Sign Up</Text>
+      </TouchableOpacity>
+    </View>
   );
-};
+}
 
-export default AuthScreen;
+const styles = StyleSheet.create({
+  title: { fontSize: 18, fontWeight: "600", color: Colors.black },
+  subtitle: { fontSize: 14, color: Colors.gray, marginTop: 8, marginBottom: 20 },
+  input: {
+    borderWidth: 1,
+    borderColor: Colors.gray,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 16,
+    marginBottom: 12,
+    color: Colors.black,
+  },
+  signupButton: {
+    backgroundColor: Colors.pink,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  signupButtonDisabled: { backgroundColor: Colors.gray },
+  signupText: { color: Colors.white, fontSize: 16, fontWeight: "600" },
+});

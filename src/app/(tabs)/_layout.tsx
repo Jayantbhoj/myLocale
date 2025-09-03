@@ -1,4 +1,6 @@
+import MyEventsHeader from '@/src/components/EventsHeader';
 import Header from '@/src/components/header';
+import ReservationsHeader from '@/src/components/ReservationsHeader';
 import Colors from '@/src/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
@@ -7,7 +9,7 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{ 
         tabBarActiveTintColor: Colors.pink,
-        tabBarInactiveTintColor: Colors.grey,
+        tabBarInactiveTintColor: Colors.gray,
         tabBarStyle: { backgroundColor: Colors.white },
         headerStyle: { backgroundColor: Colors.white}
         }}>
@@ -21,20 +23,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="parties"
+        name="reservations"
         options={{
-          title: 'Parties',
-          tabBarIcon: ({ color }) => <Ionicons name="flame" size={28} color= { color }/>,
-          header: () => <Header />,
-          headerShown: true,
-        }}
-      />
-      <Tabs.Screen
-        name="addEvents"
-        options={{
-          title: 'Add',
-          tabBarIcon: ({ color }) => <Ionicons name="add-circle-outline" size={30} color= { color }/>,
-          header: () => <Header />,
+          title: 'Reservations',
+          tabBarIcon: ({ color }) => <Ionicons name="calendar" size={30} color= { color }/>,
+          header: () => <ReservationsHeader confirmedReservations={[]}
+  waitlistedReservations={[]}/>,
           headerShown: true,
         }}
       />
@@ -43,7 +37,8 @@ export default function TabLayout() {
         options={{
           title: 'My Events',
           tabBarIcon: ({ color }) => <Ionicons name="menu" size={28} color={color} />,
-          header: () => <Header />,
+          headerShown:true,
+          header: () => <MyEventsHeader />,
         }}
       />
     </Tabs>

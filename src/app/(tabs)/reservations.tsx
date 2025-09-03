@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function Events() {
+export default function Reservations() {
   return (
     <View
       style={{
@@ -10,7 +10,7 @@ export default function Events() {
         backgroundColor: "#FFF9FA"
       }}
     >
-      <Text>Add Events</Text>
+      <Text>Reservations</Text>
     </View>
   );
 }
