@@ -1,4 +1,3 @@
-// src/components/LocationSearch.tsx
 import React, { useState, useEffect } from "react";
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { normalizePhotonFeature, NormalizedLocation } from "@/src/services/locationService";
@@ -47,7 +46,7 @@ export default function LocationSearch({
           style={styles.item}
           onPress={() => {
             onSelect(loc);
-            setQuery(loc.city); // show city in input
+            setQuery(loc.city); 
             setResults([]);
           }}
         >

@@ -2,20 +2,9 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Colors from "../constants/colors";
-import { Event } from "../schemas/internal/eventsSchema";
-import AddEvent from "./AddEvent";
 
 
-interface MyEventsHeaderProps {
-  upcomingEvents: Event[];
-  pastEvents: Event[];
-}
-
-export default function MyEventsHeader({
-  upcomingEvents=[],
-  pastEvents=[],
-}: MyEventsHeaderProps) {
-  const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
+export default function MyEventsHeader() {
 
   return (
     <LinearGradient
@@ -28,7 +17,6 @@ export default function MyEventsHeader({
         <Text style={styles.title}>My Events</Text>
 
         <View style={styles.container}>
-          <AddEvent/>
         </View>
       </SafeAreaView>
     </LinearGradient>

@@ -16,7 +16,7 @@ interface Props {
 
 export default function EventCard({ event }: Props) {
   if (!event) {
-    return null; // or a loading placeholder
+    return null; 
   }
   const [modalVisible, setModalVisible] = useState(false);
   const eventDate = new Date(event.start_time);
@@ -62,7 +62,6 @@ export default function EventCard({ event }: Props) {
         event={event}
         onClose={() => setModalVisible(false)}
         onRSVP={() => {
-          console.log("RSVP clicked for", event.name);
           setModalVisible(false);
         }}
       />

@@ -1,5 +1,3 @@
-// src/constants/colors.ts
-
 const Colors = {
   black: "#0F1108",   
   white: "#FFF9FA",  

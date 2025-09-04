@@ -1,4 +1,3 @@
-// src/components/AddEvent.tsx
 import React, { useState } from "react";
 import {
   View,
@@ -24,7 +23,6 @@ import { useEventsStore } from "../store/useEventsStore";
 export default function AddEvent() {
   const [modalVisible, setModalVisible] = useState(false);
 
-  // form state
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [capacity, setCapacity] = useState("");
@@ -32,7 +30,6 @@ export default function AddEvent() {
   const [locationText, setLocationText] = useState("");
   const [location, setLocation] = useState<NormalizedLocation | null>(null);
 
-  // date/time pickers
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
@@ -108,6 +105,7 @@ export default function AddEvent() {
           end_time: endTime.toISOString(),
           capacity: parseInt(capacity) || 0,
           cover_image_url: coverImageUrl,
+          date: date.toISOString().split("T")[0],
         },
         user?.id!
       );

@@ -9,7 +9,6 @@ const ProfilePage = () => {
   const { signOut } = useContext(AuthContext); // ⬅️ access logout
 
   const handlePress = (action: string) => {
-    console.log(`${action} pressed`);
   };
 
   return (

@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/colors";
-import { useAuth } from "../context/AuthProvider"; // ✅ use context
+import { useAuth } from "../context/AuthProvider"; 
 
 const ProfileHeader = () => {
   const router = useRouter();
-  const { user } = useAuth(); // ✅ directly get user from context
+  const { user } = useAuth(); 
 
   return (
     <SafeAreaView

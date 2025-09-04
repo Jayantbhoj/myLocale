@@ -1,4 +1,3 @@
-// components/LocationSearchBar.tsx
 import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, FlatList } from "react-native";
 import Colors from "@/src/constants/colors";
@@ -27,7 +26,7 @@ export default function LocationSearchBar({ onSelectCity }: LocationSearchBarPro
     setLocation({ latitude: null, longitude: null, name: city });
     setQuery(city);
     setFilteredCities([]);
-    onSelectCity(city); // call the modal's callback
+    onSelectCity(city); 
   };
 
   return (
@@ -82,19 +81,19 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: "absolute",
-    top: 48, // height of input + margin, adjust if needed
+    top: 48, 
     left: 0,
     right: 0,
     backgroundColor: Colors.white,
     borderColor: Colors.gray,
     borderRadius: 8,
     maxHeight: 250,
-    zIndex: 10, // make sure it's above other content
+    zIndex: 10, 
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 5, // for Android shadow
+    elevation: 5, 
   },
   item: {
     padding: 10,

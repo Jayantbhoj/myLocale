@@ -30,8 +30,8 @@ export default function ProfilePageGuest() {
       const user = await authService.signInWithEmail(email, password);
       if (user) {
         const profile = await authService.getProfile(user.id);
-        setUser(profile); // ✅ instantly set context
-        router.replace("/(tabs)"); // go to main app
+        setUser(profile);
+        router.replace("/(tabs)");
       }
     } catch (err: any) {
       Alert.alert("Login failed", err.message || "Something went wrong");
@@ -108,7 +108,7 @@ export default function ProfilePageGuest() {
               styles.loginButton,
               { marginTop: 12, backgroundColor: Colors.black },
             ]}
-            onPress={() => router.push("/(modals)/signUpModal")} // if you still want signup screen
+            onPress={() => router.push("/(modals)/signUpModal")}
           >
             <Text style={styles.loginText}>Sign Up</Text>
           </TouchableOpacity>

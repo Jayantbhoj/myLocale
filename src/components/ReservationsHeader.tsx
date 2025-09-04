@@ -26,33 +26,7 @@ export default function ReservationsHeader({
         <Text style={styles.title}>My Reservations</Text>
 
         <View style={styles.container}>
-          <TouchableOpacity
-            style={[styles.tab, activeTab === "confirmed" && styles.activeTab]}
-            onPress={() => setActiveTab("confirmed")}
-          >
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === "confirmed" && styles.activeTabText,
-              ]}
-            >
-              Confirmed ({confirmedReservations.length})
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.tab, activeTab === "waitlisted" && styles.activeTab]}
-            onPress={() => setActiveTab("waitlisted")}
-          >
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === "waitlisted" && styles.activeTabText,
-              ]}
-            >
-              Waitlisted ({waitlistedReservations.length})
-            </Text>
-          </TouchableOpacity>
+         
         </View>
       </SafeAreaView>
     </LinearGradient>

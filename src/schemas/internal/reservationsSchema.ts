@@ -6,7 +6,7 @@ export interface Reservation {
   event_id: string;
   reserved_at: string;
   status: ReservationStatus;
-  event?: {
+  events?: {
     id: string;
     name: string;
     location: string;

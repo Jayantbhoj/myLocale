@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, ActivityIndicator, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "@/src/context/AuthProvider";
 import MyEventCard from "@/src/components/MyEventCard";
@@ -7,7 +7,7 @@ import Colors from "@/src/constants/colors";
 import { Event } from "@/src/schemas/internal/eventsSchema";
 import { fetchMyEvents } from "../services/eventsService";
 import { useEventsStore } from "../store/useEventsStore";
-import AddEvent from "@/src/components/AddEvent"; // your AddEvent modal
+import AddEvent from "@/src/components/AddEvent";
 
 export default function MyEventsScreen() {
   const { user } = useAuth();
@@ -37,8 +37,11 @@ export default function MyEventsScreen() {
   const sortedUpcomingEvents = useMemo(() => {
     const now = new Date().getTime();
     return events
-      .filter(e => new Date(e.start_time).getTime() >= now)
-      .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
+      .filter((e) => new Date(e.start_time).getTime() >= now)
+      .sort(
+        (a, b) =>
+          new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
+      );
   }, [events]);
 
   return (
@@ -66,6 +69,11 @@ export default function MyEventsScreen() {
           renderItem={({ item }) => <MyEventCard event={item} />}
         />
       )}
+
+      {/* ✅ Floating AddEvent button */}
+      <View style={styles.fabContainer}>
+        <AddEvent />
+      </View>
     </SafeAreaView>
   );
 }
@@ -79,8 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
-    paddingTop: 0,
+    paddingHorizontal: 16,
   },
   list: {
     padding: 16,
@@ -97,5 +104,10 @@ const styles = StyleSheet.create({
     color: Colors.gray,
     textAlign: "center",
     marginBottom: 16,
+  },
+  fabContainer: {
+    position: "absolute",
+    bottom: 24,
+    right: 24,
   },
 });

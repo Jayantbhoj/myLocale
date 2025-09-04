@@ -13,7 +13,7 @@ const SignInHeader = () => {
     <SafeAreaView
       style={{
         backgroundColor: Colors.pink,
-        height: height * 0.25, // 30% of screen height
+        height: height * 0.25, 
         alignItems: 'center',
         justifyContent: 'center',
       }}

@@ -6,9 +6,9 @@ import { FlatList, View } from "react-native";
 export default function NearYou() {
   return (
     <FlatList
-      data={[{}]} // dummy data, only to render header + events
+      data={[{}]} 
       keyExtractor={(_, index) => index.toString()}
-      renderItem={null} // no items here, handled in ListHeaderComponent
+      renderItem={null} 
       ListHeaderComponent={
         <View style={{ flex: 1, backgroundColor: Colors.white }}>
           <Featured />

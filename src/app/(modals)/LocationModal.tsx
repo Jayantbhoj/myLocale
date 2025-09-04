@@ -1,4 +1,3 @@
-// components/LocationModal.tsx
 import React from "react";
 import {
   Modal,
@@ -18,7 +17,7 @@ import LocationSearchBar from "@/src/components/LocationSearchBar";
 
 type Location = {
   name: string;
-  [key: string]: any; // in case your location object has extra fields
+  [key: string]: any; 
 };
 
 type LocationModalProps = {

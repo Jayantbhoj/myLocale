@@ -22,7 +22,7 @@ export default function SignUpForm({ onSuccess }: { onSuccess?: () => void }) {
     try {
       const profile = await authService.signUpWithEmail(email, password, firstName, lastName);
       setUser( profile )
-      onSuccess?.(); // close modal if provided
+      onSuccess?.(); 
       router.replace("/");
     } catch (err: any) {
       console.error("signup failed:", err.message);

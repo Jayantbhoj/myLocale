@@ -1,7 +1,4 @@
-// src/services/authService.ts
 import { supabase } from "@/src/lib/supabase";
-import { router } from "expo-router";
-
 
 export type Profile = {
   id: string;
@@ -11,7 +8,7 @@ export type Profile = {
 };
 
 export const authService = {
-  // authService.ts
+  
   async signUpWithEmail(email: string, password: string, firstName: string, lastName: string) {
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
@@ -19,7 +16,7 @@ export const authService = {
     const user = data.user;
     if (!user) throw new Error("User not created");
 
-    // Insert profile
+    
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .insert({
@@ -33,7 +30,7 @@ export const authService = {
 
     if (profileError) throw profileError;
 
-    // ✅ Instead of calling setUser, just return the profile
+    
     return profile;
   },
 

@@ -1,4 +1,3 @@
-// src/components/PopularCities.tsx
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from "react-native";
 import Colors from "@/src/constants/colors";
@@ -12,10 +11,10 @@ const cities = [
   "Hyderabad",
   "Pune",
   "Goa",
-  // add more cities as needed
+  
 ];
 
-// Map lowercase city names to require
+
 const cityIcons: Record<string, any> = {
   delhi: require("../assets/icons/delhi.png"),
   mumbai: require("../assets/icons/mumbai.png"),
@@ -25,7 +24,7 @@ const cityIcons: Record<string, any> = {
   hyderabad: require("../assets/icons/hyderabad.png"),
   pune: require("../assets/icons/pune.png"),
   goa: require("../assets/icons/goa.png"),
-  // add other city icons here
+  
 };
 
 type PopularCitiesProps = {

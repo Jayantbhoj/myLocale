@@ -1,4 +1,3 @@
-// src/components/EventModal.tsx
 import Colors from "@/src/constants/colors";
 import { Event } from "@/src/schemas/internal/eventsSchema";
 import React from "react";
@@ -11,18 +10,22 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  Alert,
 } from "react-native";
+import { reserveSpot } from "@/src/services/reservationService";
+import { useAuth } from "@/src/context/AuthProvider"; 
 
 const { width, height } = Dimensions.get("window");
 
 type Props = {
   visible: boolean;
-  event: (Event & { creatorName?: string }) | null; // add creatorName for display
+  event: (Event & { creatorName?: string; capacity?: number }) | null;
   onClose: () => void;
-  onRSVP: () => void;
 };
 
-export default function EventModal({ visible, event, onClose, onRSVP }: Props) {
+export default function EventModal({ visible, event, onClose }: Props) {
+  const { user } = useAuth(); 
+
   if (!event) return null;
 
   const eventDate = new Date(event.date);
@@ -43,6 +46,30 @@ export default function EventModal({ visible, event, onClose, onRSVP }: Props) {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  const handleRSVP = async () => {
+    if (!user?.id) {
+      Alert.alert("Login required", "You need to log in to RSVP.");
+      return;
+    }
+
+    try {
+      const reservation = await reserveSpot(
+        user.id,
+        event.id,
+        event.capacity ?? 50 
+      );
+
+      Alert.alert(
+        "RSVP Successful",
+        `You are ${reservation.status} for ${event.name}`
+      );
+      onClose();
+    } catch (err: any) {
+      console.error("RSVP failed:", err);
+      Alert.alert("RSVP Failed", err.message || "Something went wrong.");
+    }
+  };
 
   return (
     <Modal visible={visible} transparent={false} animationType="slide">
@@ -100,7 +127,7 @@ export default function EventModal({ visible, event, onClose, onRSVP }: Props) {
 
         {/* Footer Actions */}
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.rsvpButton} onPress={onRSVP}>
+          <TouchableOpacity style={styles.rsvpButton} onPress={handleRSVP}>
             <Text style={styles.rsvpText}>RSVP</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
@@ -116,7 +143,6 @@ const HEADER_HEIGHT = height * 0.35;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.white },
-
   imageContainer: {
     height: HEADER_HEIGHT,
     width: width,
@@ -126,7 +152,6 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: "cover",
   },
-
   details: {
     paddingHorizontal: 16,
     paddingVertical: 20,
@@ -139,12 +164,11 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   subText: { fontSize: 16, color: Colors.gray, marginTop: 2 },
-
   datetimeContainer: {
     marginTop: 12,
     padding: 12,
     borderRadius: 8,
-    backgroundColor: Colors.gray + "15", // light background tint
+    backgroundColor: Colors.gray + "15",
   },
   dateText: {
     fontSize: 16,
@@ -156,12 +180,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.gray,
   },
-
   body: { padding: 16 },
-
   label: { fontSize: 14, fontWeight: "600", marginTop: 12, color: Colors.gray },
   value: { fontSize: 16, marginTop: 4, color: Colors.black },
-
   footer: {
     position: "absolute",
     bottom: 0,

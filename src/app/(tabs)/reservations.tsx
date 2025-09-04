@@ -1,16 +1,18 @@
-import { Text, View } from "react-native";
+import MyReservations from "@/src/components/MyReservations";
+import { View, StyleSheet } from "react-native";
+import Colors from "@/src/constants/colors";
 
 export default function Reservations() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#FFF9FA"
-      }}
-    >
-      <Text>Reservations</Text>
+    <View style={styles.container}> 
+      <MyReservations />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, 
+    backgroundColor: Colors.white, 
+  },
+});

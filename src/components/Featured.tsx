@@ -23,8 +23,7 @@ export default function Featured() {
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList<Event>>(null);
-
-  // Fetch featured events whenever the city changes
+ 
   useEffect(() => {
     if (!location?.name) return;
 
@@ -41,16 +40,16 @@ export default function Featured() {
     };
 
     loadEvents();
-  }, [location?.name]); // reactive to city changes
+  }, [location?.name]);
 
-  // Memoized sorted events
+ 
   const featuredEvents = useMemo(() => {
     return [...events].sort(
       (a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
     );
   }, [events]);
 
-  // Memoized scroll handler
+ 
   const onScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const index = Math.round(e.nativeEvent.contentOffset.x / width);

@@ -1,4 +1,3 @@
-// components/GetCurrentLocationButton.tsx
 import React, { useState } from "react";
 import { TouchableOpacity, Text, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import * as Location from "expo-location";
@@ -6,7 +5,7 @@ import { useLocationStore } from "@/src/store/useLocationStore";
 import Colors from "@/src/constants/colors";
 
 type Props = {
-  onSuccess?: () => void; // callback to close modal
+  onSuccess?: () => void; 
 };
 
 export default function GetCurrentLocationButton({ onSuccess }: Props) {
@@ -36,7 +35,7 @@ export default function GetCurrentLocationButton({ onSuccess }: Props) {
         name: address[0]?.city || address[0]?.region || "Unknown",
       });
 
-      if (onSuccess) onSuccess(); // call the callback to close modal
+      if (onSuccess) onSuccess(); 
     } catch (err) {
       console.error(err);
       Alert.alert("Error", "Failed to get current location.");

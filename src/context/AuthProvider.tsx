@@ -1,4 +1,3 @@
-// src/context/AuthProvider.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/src/lib/supabase";
 import { authService, Profile as UserProfile } from "@/src/services/authService";

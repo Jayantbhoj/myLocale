@@ -16,16 +16,13 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const logoOpacity = useSharedValue(1);
 
   useEffect(() => {
-    // Expanding circle animation
     circleScale.value = withTiming(6, { duration: 2500, easing: Easing.out(Easing.ease) });
 
-    // Fade + shrink logo as splash ends
     setTimeout(() => {
       logoScale.value = withTiming(0.7, { duration: 850, easing: Easing.inOut(Easing.ease) });
       logoOpacity.value = withTiming(0, { duration: 850, easing: Easing.inOut(Easing.ease) });
     }, 1800);
 
-    // Navigate after splash
     const timer = setTimeout(() => {
       onFinish();
     }, 2500);

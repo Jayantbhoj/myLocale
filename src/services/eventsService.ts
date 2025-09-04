@@ -58,8 +58,8 @@ export async function fetchMyEvents(userId: string): Promise<Event[]> {
     .from("events")
     .select("*")
     .eq("creator_id", userId)
-    .order("date", { ascending: true }) // first by date
-    .order("start_time", { ascending: true }); // then by start_time
+    .order("date", { ascending: true }) 
+    .order("start_time", { ascending: true }); 
 
   if (error) {
     console.error("Error fetching my events:", error);
@@ -74,8 +74,8 @@ export async function fetchFeaturedEvents(city: string, limit = 3): Promise<Even
     .from("events")
     .select("*")
     .eq("city", city)
-    .order("date", { ascending: true }) // first by date
-    .order("start_time", { ascending: true }) // then by start_time
+    .order("date", { ascending: true }) 
+    .order("start_time", { ascending: true }) 
     .limit(limit);
 
   if (error) {
@@ -84,4 +84,17 @@ export async function fetchFeaturedEvents(city: string, limit = 3): Promise<Even
   }
 
   return data || [];
+}
+
+export async function fetchAllEvents(): Promise<Event[]> {
+  const { data, error } = await supabase
+    .from("events")
+    .select("*")
+    .order("start_time", { ascending: true }); 
+
+  if (error) {
+    throw error;
+  }
+
+  return data as Event[];
 }
