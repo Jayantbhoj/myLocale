@@ -124,7 +124,7 @@ export default function AddEvent() {
     <>
 
         <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
-          <Text style={styles.addButtonText}> Add Event</Text>
+          <Text style={styles.addButtonText}>Add  </Text>
         </TouchableOpacity>
 
 
@@ -136,12 +136,14 @@ export default function AddEvent() {
 
             <TextInput
               placeholder="Event Name"
+              placeholderTextColor={Colors.gray}
               style={styles.input}
               value={name}
               onChangeText={setName}
             />
             <TextInput
               placeholder="Description"
+              placeholderTextColor={Colors.gray}
               style={[styles.input, { height: 100, textAlignVertical: "top" }]}
               value={description}
               onChangeText={setDescription}
@@ -149,6 +151,7 @@ export default function AddEvent() {
             />
             <TextInput
               placeholder="Capacity"
+              placeholderTextColor={Colors.gray}
               style={styles.input}
               value={capacity}
               onChangeText={setCapacity}
@@ -156,6 +159,7 @@ export default function AddEvent() {
             />
             <TextInput
               placeholder="Full Location (e.g. Venue name, address)"
+              placeholderTextColor={Colors.gray}
               style={styles.input}
               value={locationText}
               onChangeText={setLocationText}
@@ -245,7 +249,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: Colors.pink,
     borderRadius: 10,
-    width: "70%",
+    width: "90%",
     alignItems: "center",
   },
   addButtonText: { color: "#fff", fontSize: 16, fontWeight: "bold" },

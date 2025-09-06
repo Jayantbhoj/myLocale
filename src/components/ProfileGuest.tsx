@@ -79,6 +79,7 @@ export default function ProfilePageGuest() {
             onChangeText={setEmail}
             style={styles.input}
             autoCapitalize="none"
+            placeholderTextColor={Colors.gray}
             keyboardType="email-address"
           />
 
@@ -88,6 +89,7 @@ export default function ProfilePageGuest() {
             value={password}
             onChangeText={setPassword}
             style={styles.input}
+            placeholderTextColor={Colors.gray}
             secureTextEntry
           />
 

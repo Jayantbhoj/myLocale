@@ -144,14 +144,15 @@ const HEADER_HEIGHT = height * 0.35;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.white },
   imageContainer: {
-    height: HEADER_HEIGHT,
-    width: width,
+  width: "100%",
+  aspectRatio: 16 / 12,   
   },
   image: {
     width: "100%",
     height: "100%",
     resizeMode: "cover",
   },
+
   details: {
     paddingHorizontal: 16,
     paddingVertical: 20,

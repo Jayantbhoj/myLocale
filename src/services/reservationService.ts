@@ -50,7 +50,7 @@ export async function getUserReservations(userId: string): Promise<Reservation[]
   const { data, error } = await supabase
     .from("reservations")
     .select("*, events(*)")
-    .eq("user_id", userId);
+    .eq("user_id", userId); 
 
   if (error) throw error;
   return data;
