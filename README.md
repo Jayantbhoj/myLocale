@@ -57,7 +57,7 @@ It provides a clean event management workflow — from adding event details and 
 ### Installation
 ```bash
 # Clone the repo
-git clone https://github.com/<your-username>/mylocale.git
+git clone https://github.com/jayantbhoj/mylocale.git
 
 # Install dependencies
 cd mylocale
